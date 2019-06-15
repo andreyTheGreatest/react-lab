@@ -1,0 +1,70 @@
+import React from 'react';
+import Weather from './components/Weather';
+import './App.css';
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: undefined,
+      weather_state_name: undefined,
+      weather_state_abbr: undefined,
+      wind_direction_compass: undefined,
+      created: undefined,
+      applicable_date: undefined,
+      min_temp: undefined,
+      max_temp: undefined,
+      the_temp: undefined,
+      wind_speed: undefined,
+      wind_direction: undefined,
+      air_pressure: undefined,
+      humidity: undefined,
+      visibility: undefined,
+      predictability: undefined
+    }
+  }
+
+  getWeather = async () => {
+    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const targetUrl = 'https://www.metaweather.com/api/location/924938/';
+
+    const api = await fetch(proxyUrl + targetUrl);
+    const wholeData = await api.json();
+    const data = wholeData.consolidated_weather;
+    console.log(data);
+
+    this.setState({
+      id: data.id,
+      weather_state_name: data.weather_state_name,
+      weather_state_abbr: data.weather_state_abbr,
+      wind_direction_compass: data.wind_direction_compass,
+      created: data.created,
+      applicable_date: data.applicable_date,
+      min_temp: data.min_temp,
+      max_temp: data.max_temp,
+      the_temp: data.the_temp,
+      wind_speed: data.wind_speed,
+      wind_direction: data.wind_direction,
+      air_pressure: data.air_pressure,
+      humidity: data.humidity,
+      visibility: data.visibility,
+      predictability: data.predictability
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.getWeather}>
+          Get Weather
+        </button>
+        <Weather 
+          wthrAbbr={this.state.weather_state_abbr}
+          wthrName={this.state.weather_state_name}
+        />
+      </div>
+    );
+  }
+}
+
+export default App;

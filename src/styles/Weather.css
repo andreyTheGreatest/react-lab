@@ -1,0 +1,18 @@
+#card {
+    display: flex;
+    flex-direction: column;
+}
+
+#image {
+    height: 64px;
+    width: 64px;
+}
+
+#weather_state {
+    display: flex;
+}
+
+#date {
+    color: rgb(42, 169, 228);
+    font-weight: 700;
+}
